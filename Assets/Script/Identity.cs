@@ -48,8 +48,6 @@ public abstract class Identity : MonoBehaviour
         // Step 4: จำกัดค่าในช่วง -1 ถึง 1
         relativePos = Vector2.ClampMagnitude(relativePos, 1f);
 
-        Vector2 resault = new Vector2(player.positionX - positionX, player.positionZ - positionZ);
-
         return relativePos;
     }
 
