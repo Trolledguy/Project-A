@@ -4,6 +4,7 @@ public abstract class Monster : Entity , ISprite2D
 {
     protected SpriteLoader spLoader;
     
+    
     public SpriteRenderer sprite
     {
         get
@@ -29,7 +30,7 @@ public abstract class Monster : Entity , ISprite2D
     }
 
 
-
+    public virtual void MonsterMove() { }
     
     protected abstract void OnPlayerHit();
     protected override void Initialized()

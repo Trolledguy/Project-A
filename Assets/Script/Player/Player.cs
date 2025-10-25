@@ -16,7 +16,7 @@ public class Player : Entity
         SetupPlayer();
     }
 
-    public override void Move(float MoveZ, float MoveX)
+    public void Move(float MoveZ, float MoveX)
     {
         Vector3 forword = transform.forward * MoveZ * speed * Time.deltaTime;
         Vector3 right = transform.right * MoveX * speed * Time.deltaTime;
@@ -36,9 +36,6 @@ public class Player : Entity
             colli.height = defaultHieght / 2;
         }
         else { colli.height = defaultHieght; }
-        
-        
-
         
     }
 
