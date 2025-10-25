@@ -25,6 +25,7 @@ public class InputConTroller : MonoBehaviour
     ///
     private float mouseSen = 100f;
     private float xRotation = 0f;
+    private bool isCouching = false;
 
     void Start()
     {
@@ -46,6 +47,10 @@ public class InputConTroller : MonoBehaviour
         {
             player.Move(iZ, iX);
         }
+
+        isCouching = Input.GetKey(KeyCode.LeftControl);
+        player.Couch(isCouching);
+        Debug.Log(isCouching);
         
     }
 
@@ -69,11 +74,13 @@ public class InputConTroller : MonoBehaviour
             Cursor.visible = false;
         }
         else
-        { 
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
+
+    
 
     private void Setup()
     {

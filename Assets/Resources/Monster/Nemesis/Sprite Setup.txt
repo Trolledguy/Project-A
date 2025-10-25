@@ -1,0 +1,8 @@
+Inspectator
+Texture Type > Sprite (2D)
+Sprite Mode > Multiple
+Filter Mode > Point
+Compression > None
+
+Sprite Editor
+Sprite 96x144

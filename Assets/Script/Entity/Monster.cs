@@ -1,21 +1,40 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public abstract class Monster : Entity, IInteractable
+public abstract class Monster : Entity , ISprite2D
 {
-    public SpriteRenderer sprite { get; set; }
-    public Animator anim;
-
-
-    //Call this Method on updated
-    public virtual void ControlSprite()
+    protected SpriteLoader spLoader;
+    
+    public SpriteRenderer sprite
     {
-        transform.LookAt(player.cam.transform);
+        get
+        {
+            if (spLoader != null && spLoader.GetComponent<SpriteLoader>())
+            {
+                return spLoader.sRenderer;
+            }
+            else
+            {
+                Debug.LogWarning("Sprite Loader Fail");
+                return null;
+            }
+        }
+        
+        set
+        {
+            if (value != null)
+            {
+                spLoader.sRenderer = value;
+            }
+        }
     }
+
+
+
+    
     protected abstract void OnPlayerHit();
     protected override void Initialized()
     {
         base.Initialized();
-        anim.GetComponent<Animator>();
+        spLoader = GetComponentInChildren<SpriteLoader>();
     }
 }

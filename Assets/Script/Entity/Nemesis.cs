@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class Nemesis : Monster, IMovable
+public class Nemesis : Monster
 {
     void Start()
     {
@@ -9,7 +9,11 @@ public class Nemesis : Monster, IMovable
     }
     void Update()
     {
-        ControlSprite();
+        
+    }
+    public override void Interact()
+    {
+        throw new System.NotImplementedException();
     }
 
     protected override void OnPlayerHit()
