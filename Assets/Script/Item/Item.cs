@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public abstract class Monster : Entity , ISprite2D
+public abstract class Item : Identity , ISprite2D , IInteractable
 {
+    public bool isHolded = false;
+
     protected SpriteLoader spLoader;
-    
+    public Sprite itemSprite;
     public SpriteRenderer sprite
     {
         get
@@ -18,7 +20,7 @@ public abstract class Monster : Entity , ISprite2D
                 return null;
             }
         }
-        
+
         set
         {
             if (value != null)
@@ -28,13 +30,24 @@ public abstract class Monster : Entity , ISprite2D
         }
     }
 
-
-    public virtual void MonsterMove() { }
-    
-    protected abstract void OnPlayerHit();
-    protected override void Initialized()
+    void Start()
     {
         base.Initialized();
-        spLoader = GetComponentInChildren<SpriteLoader>();
     }
+
+    //ความสามารถ Item
+    public abstract void ObjectInteract();
+
+    public virtual void Holding(Transform holdPos, float _time)
+    {
+        eRigi.isKinematic = true;
+    }
+
+    public void Drop()
+    {
+        eRigi.isKinematic = false;
+        icollider.isTrigger = false;
+        transform.SetParent(null);
+    }
+
 }

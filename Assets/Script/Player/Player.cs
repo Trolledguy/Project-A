@@ -8,6 +8,12 @@ public class Player : Entity
     public Vector3 camOffset;
     public float speed;
 
+    public Transform holdPos1;
+    public Transform holdPos2;
+    public Transform middlePos;
+
+    public Item[] HoldedItem = new Item[2];
+
     const float defaultHieght = 2;
 
 
