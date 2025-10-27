@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Note : Item
 {
-    public override void ObjectInteract()
+    public override void ObjectInteract(Player player)
     {
         throw new System.NotImplementedException();
     }

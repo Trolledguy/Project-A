@@ -36,7 +36,7 @@ public abstract class Item : Identity , ISprite2D , IInteractable
     }
 
     //ความสามารถ Item
-    public abstract void ObjectInteract();
+    public abstract void ObjectInteract(Player player);
 
     public virtual void Holding(Transform holdPos, float _time)
     {

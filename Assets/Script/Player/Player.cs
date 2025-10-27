@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,6 +8,11 @@ public class Player : Entity
     public Camera cam;
     public Vector3 camOffset;
     public float speed;
+
+    [SerializeField]
+    private bool ishided = false;
+    [SerializeField]
+    private bool isTranslating = false;
 
     public Transform holdPos1;
     public Transform holdPos2;
@@ -47,7 +53,43 @@ public class Player : Entity
 
     public override void Interact()
     {
+
+    }
+    public override void Interact(HideSpot hideSpot)
+    {
+        if (ishided == false)
+        {
+            hideSpot.ObjectInteract(this);
+            ishided = true;
+        }
+        else
+        {
+            hideSpot.UnHidePlayer();
+            ishided = false;
+        }
+    }
+
+    public void TriggerFreeze()
+    {
+        eRigi.isKinematic = !eRigi.isKinematic;
+    }
+
+    public bool IsPlayerTranslating() { return isTranslating; }
+
+    public override void Interact(Item _item)
+    {
         throw new System.NotImplementedException();
+    }
+    public IEnumerator TranslatePlayerPos(Vector3 targetPos,float _time)
+    {
+        while (Vector3.Distance(transform.position, targetPos) > 0.15f)
+        {
+            isTranslating = true;
+            transform.position = Vector3.Lerp(transform.position, targetPos, _time * Time.deltaTime);
+            yield return null;
+        }
+        isTranslating = false;
+        yield return null;
     }
 
     private void SetupPlayer()

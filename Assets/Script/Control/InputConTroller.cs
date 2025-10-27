@@ -46,6 +46,9 @@ public class InputConTroller : MonoBehaviour
     {
         CamControl();
         InteractControl();
+
+        //prevent player move while translating
+        if (player.IsPlayerTranslating()) { return; }
     
         float iZ = Input.GetAxis("MoveZ");
         float iX = Input.GetAxis("MoveX");
@@ -60,9 +63,12 @@ public class InputConTroller : MonoBehaviour
 
     private void InteractControl()
     {
+        ///
+        /// Control mouse or item system
+        /// 
         if (Input.GetMouseButton(0))
         {
-            CheckFront(player.holdPos1,0);
+            CheckFront(player.holdPos1, 0);
         }
         else if (Input.GetMouseButtonUp(0)) { ResetHold(0); }
         if (Input.GetMouseButton(1))
@@ -70,46 +76,79 @@ public class InputConTroller : MonoBehaviour
             CheckFront(player.holdPos2, 1);
         }
         else if (Input.GetMouseButtonUp(1)) { ResetHold(1); }
-    }
 
+        ///
+        /// Hide Control
+        /// 
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            RaycastHit hideSpotCheck = CheckFront();
+            try
+            {
+                if (hideSpotCheck.collider.GetComponent<HideSpot>())
+                {
+                    HideSpot hideSpot = hideSpotCheck.collider.GetComponent<HideSpot>();
+                    player.Interact(hideSpot);
+                }
+            }
+            catch (NullReferenceException) { return; }
+            
+        }
+    }
+    //use this if player interact with Object
+    private RaycastHit CheckFront()
+    {
+        RaycastHit hitCheck;
+        Transform originPoint = player.cam.transform;
+        Physics.Raycast(originPoint.position, originPoint.forward, out hitCheck, interactDistance);
+
+        return hitCheck;
+    }
+    //Use this method if player going to pick Item (mouse click)
     private void CheckFront(Transform hand, int whichHand)
     {
-        RaycastHit _hit;
-        Transform originPoint = player.cam.transform;
-        Physics.Raycast(originPoint.position, originPoint.forward, out _hit, interactDistance);
+        RaycastHit hit = CheckFront();
+        try
+        {
+            if (hit.collider.GetComponent<Item>())
+            {
+                ItemHold(hit, hand, whichHand);
+            }
+        }
+        catch (NullReferenceException) { return; }
+    }
 
-        if (player.HoldedItem[whichHand] != null)
+    private void ItemHold(RaycastHit _hit,Transform _hand, int _whichHand)
+    {
+        if (player.HoldedItem[_whichHand] != null)
         {
             return;
         }
-        try
+    
+        Item item = _hit.collider.GetComponent<Item>();
+        //if a note
+        if (item.GetComponent<Note>())
         {
-            if (_hit.collider.gameObject.GetComponent<Item>())
+            Debug.Log("this a note");
+            Note note = item.GetComponent<Note>();
+            for (int i = 0; i < player.HoldedItem.Length; i++)
             {
-                Item item = _hit.collider.GetComponent<Item>();
-                //if a note
-                if (item.GetComponent<Note>())
-                {
-                    Debug.Log("this a note");
-                    Note note = item.GetComponent<Note>();
-                    for (int i = 0; i < player.HoldedItem.Length; i++)
-                    {
-                        ResetHold(i);
-                        isHandBusy[i] = true;
-                        player.HoldedItem[i] = note;
-                    }
-                    note.Holding(player.middlePos, floatSpeed);
-                    
-                    return;
-                }
-                //if a regular Item
-                player.HoldedItem[whichHand] = item;
-                isHandBusy[whichHand] = true;
-                item.Holding(hand, floatSpeed);
-                Debug.Log("this is Item");
+                ResetHold(i);
+                isHandBusy[i] = true;
+                player.HoldedItem[i] = note;
             }
+            note.Holding(player.middlePos, floatSpeed);
+                    
+            return;
         }
-        catch (NullReferenceException) { return; } //Prevent interact Check null Error
+        //if a regular Item
+        player.HoldedItem[_whichHand] = item;
+        isHandBusy[_whichHand] = true;
+        item.Holding(_hand, floatSpeed);
+        Debug.Log("this is Item");
+            
+
     }
 
     private void ResetHold(int hand)
@@ -120,8 +159,9 @@ public class InputConTroller : MonoBehaviour
             player.HoldedItem[hand] = null;
         }
         catch (NullReferenceException) { return; }
-        
+
     }
+    
 
     private void CamControl()
     {
@@ -157,5 +197,20 @@ public class InputConTroller : MonoBehaviour
         }
         LockMouse();
     }
+
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Transform camPos = Camera.main.transform;
+
+        Ray checkray = new Ray();
+        checkray.origin = camPos.position;
+        checkray.direction = camPos.forward * 5;
+
+        //Player Check Line
+        Gizmos.DrawRay(checkray);
+    }
+
 
 }
