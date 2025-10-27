@@ -34,6 +34,7 @@ public class Player : Entity
         Vector3 right = transform.right * MoveX * speed * Time.deltaTime;
 
         Vector3 moveForce = right + forword;
+        transform.position += transform.forward * MoveZ * 0.5f * Time.deltaTime;
         eRigi.AddForce(moveForce, ForceMode.VelocityChange);
         /*
         transform.position += transform.forward * MoveZ * speed * Time.deltaTime;
@@ -96,6 +97,7 @@ public class Player : Entity
     {
         base.Initialized();
         cam = Camera.main;
+        cam.transform.SetParent(null);
     }
 
 }

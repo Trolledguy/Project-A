@@ -30,6 +30,8 @@ public class InputConTroller : MonoBehaviour
     ///
     private float mouseSen = 100f;
     private float xRotation = 0f;
+    private float yRotation = 0f;
+
     private bool isCouching = false;
 
     void Start()
@@ -165,14 +167,17 @@ public class InputConTroller : MonoBehaviour
 
     private void CamControl()
     {
+        player.cam.transform.position = player.transform.position + player.camOffset;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSen * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSen * Time.deltaTime;
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        player.cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        player.transform.Rotate(Vector3.up * mouseX);
+        yRotation -= mouseX;
+
+        player.cam.transform.localEulerAngles = new Vector3(xRotation,-yRotation,0);
+        player.transform.localEulerAngles = new Vector3(0,-yRotation,0);
     }
 
     private void LockMouse()
