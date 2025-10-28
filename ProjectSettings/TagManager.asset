@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Explore Node
   layers:
   - Default
   - TransparentFX
@@ -11,12 +12,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - Shadow Mesh
+  - Checker
   - 
-  - 
-  - 
+  - HideSpot
   - 
   - 
   - 

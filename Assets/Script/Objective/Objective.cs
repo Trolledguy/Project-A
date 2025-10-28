@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -11,11 +12,23 @@ public class Objective : ScriptableObject
 
     public Condition condition;
 
-    public Objective()
+    void Awake()
     {
-        condition.linkObjective = this;
+        SetUpMission();
     }
 
+    private void SetUpMission()
+    {
+        try
+        {
+            condition.linkObjective = this;
+        }
+        catch (NullReferenceException)
+        {
+            Debug.LogError("Warning : Objective is MISSION CPNDITION");    
+            return; 
+        }
+    }
     public void PassMission()
     {
         isDone = true;

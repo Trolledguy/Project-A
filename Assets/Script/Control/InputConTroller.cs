@@ -41,16 +41,19 @@ public class InputConTroller : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.intance.isGamePause) { return; }
         InputControl();
     }
 
     private void InputControl()
     {
-        CamControl();
+        
         InteractControl();
 
         //prevent player move while translating
         if (player.IsPlayerTranslating()) { return; }
+
+        CamControl();
     
         float iZ = Input.GetAxis("MoveZ");
         float iX = Input.GetAxis("MoveX");

@@ -5,18 +5,45 @@ public class GameManager : MonoBehaviour
     public static GameManager intance;
     public Player mPlayer;
 
-
     public Objective[] gameMission;
+    public GameObject[] exploreNode;
+    public bool isGamePause = false;
     private int currectMission = 0;
+    
 
-    void Start()
+    void Awake()
     {
         SetUp();
     }
 
-    public void NextMission() 
-    { currectMission++; }
+    public void NextMission()
+    {
+        currectMission++;
+        //
+        
+    }
 
+    public void TriggerGamePause()
+    {
+        isGamePause = !isGamePause;
+        if (isGamePause)
+        {
+            Time.timeScale = 0;
+            mPlayer.TriggerFreeze();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            mPlayer.TriggerFreeze(false);
+        }
+
+    }
+
+    public Transform GetDestination()
+    {
+        int randomDes = Random.Range(0, exploreNode.Length);
+        return exploreNode[randomDes].transform;
+    }
 
     private void SetUp()
     {
@@ -24,10 +51,12 @@ public class GameManager : MonoBehaviour
         {
             intance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log($"{GameManager.intance}");
         }
         else { Destroy(gameObject); }
 
         mPlayer = GameObject.FindAnyObjectByType<Player>();
+        exploreNode = GameObject.FindGameObjectsWithTag("Explore Node");
     }
 
 }

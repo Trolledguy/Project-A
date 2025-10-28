@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class HideSpot : Identity , IInteractable
 {
-    private Player hiddingPlayer;
+    public Player hiddingPlayer;
     public Transform hidePosotion;
     public Transform dropPostitio;
     public virtual void ObjectInteract(Player player)

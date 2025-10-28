@@ -74,6 +74,11 @@ public class Player : Entity
     {
         eRigi.isKinematic = !eRigi.isKinematic;
     }
+    //set player Freeze
+    public void TriggerFreeze(bool setKenetic)
+    {
+        eRigi.isKinematic = setKenetic;
+    }
 
     public bool IsPlayerTranslating() { return isTranslating; }
 
@@ -81,7 +86,7 @@ public class Player : Entity
     {
         throw new System.NotImplementedException();
     }
-    public IEnumerator TranslatePlayerPos(Vector3 targetPos,float _time)
+    public IEnumerator TranslatePlayerPos(Vector3 targetPos, float _time)
     {
         while (Vector3.Distance(transform.position, targetPos) > 0.15f)
         {
@@ -91,6 +96,27 @@ public class Player : Entity
         }
         isTranslating = false;
         yield return null;
+    }
+
+    public IEnumerator TranslatePlayerPos(Vector3 targetPos, Vector3 targetCamRotate, float _time)
+    {
+        while (Vector3.Distance(transform.position, targetPos) > 0.15f)
+        {
+            isTranslating = true;
+            transform.position = Vector3.Lerp(transform.position, targetPos, _time * Time.deltaTime);
+            cam.transform.localEulerAngles = Vector3.Lerp(cam.transform.localEulerAngles, targetCamRotate, _time * Time.deltaTime);
+            yield return null;
+        }
+        isTranslating = false;
+        yield return null;
+    }
+
+    public bool IsplayerHiding() { return ishided; }
+
+    public void Dead()
+    {
+        //Trigger JumpScare
+        Debug.Log("!!! PLAYER DEAD");
     }
 
     private void SetupPlayer()
