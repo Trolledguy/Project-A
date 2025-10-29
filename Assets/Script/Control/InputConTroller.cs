@@ -98,7 +98,20 @@ public class InputConTroller : MonoBehaviour
                 }
             }
             catch (NullReferenceException) { return; }
-            
+
+        }
+
+        ///
+        /// Use Item Control
+        /// 
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            UsedItem(player.HoldedItem[0]);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            UsedItem(player.HoldedItem[1]); 
         }
     }
     //use this if player interact with Object
@@ -124,18 +137,17 @@ public class InputConTroller : MonoBehaviour
         catch (NullReferenceException) { return; }
     }
 
-    private void ItemHold(RaycastHit _hit,Transform _hand, int _whichHand)
+    private void ItemHold(RaycastHit _hit, Transform _hand, int _whichHand)
     {
         if (player.HoldedItem[_whichHand] != null)
         {
             return;
         }
-    
+
         Item item = _hit.collider.GetComponent<Item>();
         //if a note
         if (item.GetComponent<Note>())
         {
-            Debug.Log("this a note");
             Note note = item.GetComponent<Note>();
             for (int i = 0; i < player.HoldedItem.Length; i++)
             {
@@ -144,22 +156,38 @@ public class InputConTroller : MonoBehaviour
                 player.HoldedItem[i] = note;
             }
             note.Holding(player.middlePos, floatSpeed);
-                    
+
             return;
         }
         //if a regular Item
         player.HoldedItem[_whichHand] = item;
         isHandBusy[_whichHand] = true;
         item.Holding(_hand, floatSpeed);
-        Debug.Log("this is Item");
-            
 
+    }
+
+    private void UsedItem(Item item)
+    {
+        try
+        {
+            item.ObjectInteract(player);
+        }
+        catch (NullReferenceException) { return; } //return if empty
+        
     }
 
     private void ResetHold(int hand)
     {
         try
         {
+            if (player.HoldedItem[hand].GetComponent<Note>())
+            {
+                for (int i = 0; i < player.HoldedItem.Length; i++)
+                {
+                    player.HoldedItem[i].Drop();
+                    player.HoldedItem[i] = null;
+                }
+            }
             player.HoldedItem[hand].Drop();
             player.HoldedItem[hand] = null;
         }

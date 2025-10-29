@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Nemesis : Monster
 {
-    float timer = 0;
     void Start()
     {
         StartCoroutine(MonsterBeavior());
@@ -33,8 +32,9 @@ public class Nemesis : Monster
         {
             OnPlayerHit(hitPlayer);
         }
-        
+
     }
+    
 
     public override void Interact(HideSpot _hidespot)
     {

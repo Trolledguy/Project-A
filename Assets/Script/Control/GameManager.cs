@@ -5,10 +5,11 @@ public class GameManager : MonoBehaviour
     public static GameManager intance;
     public Player mPlayer;
 
-    public Objective[] gameMission;
     public GameObject[] exploreNode;
     public bool isGamePause = false;
-    private int currectMission = 0;
+
+    public Monster[] allmons;
+    
     
 
     void Awake()
@@ -16,12 +17,7 @@ public class GameManager : MonoBehaviour
         SetUp();
     }
 
-    public void NextMission()
-    {
-        currectMission++;
-        //
-        
-    }
+    
 
     public void TriggerGamePause()
     {

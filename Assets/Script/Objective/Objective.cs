@@ -1,38 +1,10 @@
-using System;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "Objective", menuName = "Objective System/Objective")]
-public class Objective : ScriptableObject
+[System.Serializable]
+public class Objective
 {
-
-    public string missionName;
-    public string description;
-    private bool isDone = false;
-
-    public Condition condition;
-
-    void Awake()
-    {
-        SetUpMission();
-    }
-
-    private void SetUpMission()
-    {
-        try
-        {
-            condition.linkObjective = this;
-        }
-        catch (NullReferenceException)
-        {
-            Debug.LogError("Warning : Objective is MISSION CPNDITION");    
-            return; 
-        }
-    }
-    public void PassMission()
-    {
-        isDone = true;
-        GameManager.intance.NextMission();
-    }
-
+    public string objectiveID;   // เช่น "PickUpApple01"
+    public string description;   // เช่น "เก็บแอปเปิ้ลจากโต๊ะ"
+    public bool isCompleted = false;
+    
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Item : Identity , ISprite2D , IInteractable
 {
-    public bool isHolded = false;
+    public string itemID;
 
     protected SpriteLoader spLoader;
     public Sprite itemSprite;
@@ -41,6 +41,9 @@ public abstract class Item : Identity , ISprite2D , IInteractable
     public virtual void Holding(Transform holdPos, float _time)
     {
         eRigi.isKinematic = true;
+        transform.position = Vector3.Lerp(transform.position, holdPos.position, _time);
+        icollider.isTrigger = true;
+        transform.SetParent(holdPos);
     }
 
     public void Drop()

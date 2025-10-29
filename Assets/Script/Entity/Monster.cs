@@ -8,10 +8,12 @@ public abstract class Monster : Entity , ISprite2D
 {
     protected SpriteLoader spLoader;
     public NavMeshAgent ai;
-    public Collider Checkcolli;
+    public SphereCollider Checkcolli;
+    public Player seenPlayer;
 
     private Vector3 goingTo;
     public bool sawPlayer = false;
+    protected float timer = 0;
     
     public SpriteRenderer sprite
     {
@@ -38,6 +40,56 @@ public abstract class Monster : Entity , ISprite2D
     }
 
     protected abstract IEnumerator MonsterBeavior();
+
+    public virtual void CheckHide()
+    {
+        LayerMask hidespot = LayerMask.GetMask("HideSpot");
+        RaycastHit[] hideinfo = Physics.SphereCastAll(transform.TransformPoint(Checkcolli.center), Checkcolli.radius,
+        transform.forward, 4.29f, hidespot);
+
+        if (hideinfo.Length > 0)
+        {
+            Debug.Log("Detect HideSpot");
+            foreach (RaycastHit hideSpotHit in hideinfo)
+            {
+                int isCheck = UnityEngine.Random.Range(0, 100000);
+                if (isCheck < 50)
+                {
+                    Debug.Log("Going Check");
+                    HideSpot spot = hideSpotHit.collider.GetComponent<HideSpot>();
+                    MonsterMove(spot.transform);
+                    if (Vector3.Distance(transform.position, spot.transform.position) < 2f)
+                    {
+                        Interact(spot);
+                        return;
+                    }
+
+                }
+                else { return; }
+            }
+        }
+    }
+    public virtual void FollowPlayer()
+    {
+        RaycastHit lineOfSight;
+
+        MonsterMove(seenPlayer.transform);
+        if (Physics.Raycast(transform.position, seenPlayer.transform.position, out lineOfSight))
+        {
+            if (!lineOfSight.collider.GetComponent<Player>())
+            {
+                timer += Time.deltaTime;
+                if (timer > 5)
+                {
+                    MonsterMove(transform);
+                    sawPlayer = false;
+                    seenPlayer = null;
+                    timer = 0;
+                }
+            }
+            else { timer = 0; }
+        }
+    }
 
 
     public virtual void MonsterMove(Transform _destinate)
