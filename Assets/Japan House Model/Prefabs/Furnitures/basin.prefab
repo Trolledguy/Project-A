@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1465441384088173084}
   - component: {fileID: 4775785287477532178}
   - component: {fileID: 5299540360216332118}
+  - component: {fileID: 7436096367498348543}
   m_Layer: 0
   m_Name: basin
   m_TagString: Untagged
@@ -121,3 +122,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7436096367498348543
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133639312061065368}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7733116471933394314, guid: 51b12aec2bec9794ab6ee499b3928aad, type: 3}

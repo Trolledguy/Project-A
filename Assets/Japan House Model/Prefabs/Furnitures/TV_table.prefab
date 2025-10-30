@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1651406826488843001}
   - component: {fileID: 8408891123575504977}
   - component: {fileID: 8557573278299215277}
+  - component: {fileID: 9066734354733249231}
   m_Layer: 0
   m_Name: TV_table
   m_TagString: Untagged
@@ -89,6 +90,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9066734354733249231
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181514348933442002}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1080385591296768827, guid: 51b12aec2bec9794ab6ee499b3928aad, type: 3}
 --- !u!1 &4128544998193547589
 GameObject:
   m_ObjectHideFlags: 0
