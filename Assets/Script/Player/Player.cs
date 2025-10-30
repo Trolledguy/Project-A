@@ -116,6 +116,7 @@ public class Player : Entity
     public void Dead()
     {
         //Trigger JumpScare
+        UIManager.instance.TriggerJumpScare("NemesisJC");
         Debug.Log("!!! PLAYER DEAD");
     }
 

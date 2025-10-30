@@ -11,6 +11,8 @@ public class InputConTroller : MonoBehaviour
 
     private bool[] isHandBusy = new bool[2];
 
+    private bool isGamePause;
+
     /// <summary>
     /// Mouse Setting
     /// </summary>
@@ -36,6 +38,7 @@ public class InputConTroller : MonoBehaviour
 
     void Start()
     {
+        isGamePause = false;
         Setup();
         
     }
@@ -88,13 +91,18 @@ public class InputConTroller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            RaycastHit hideSpotCheck = CheckFront();
+            RaycastHit frontObject = CheckFront();
             try
             {
-                if (hideSpotCheck.collider.GetComponent<HideSpot>())
+                if (frontObject.collider.GetComponent<HideSpot>())
                 {
-                    HideSpot hideSpot = hideSpotCheck.collider.GetComponent<HideSpot>();
+                    HideSpot hideSpot = frontObject.collider.GetComponent<HideSpot>();
                     player.Interact(hideSpot);
+                }
+                if (frontObject.collider.GetComponent<Door>())
+                {
+                    Door door = frontObject.collider.GetComponent<Door>();
+                    door.StartMove();
                 }
             }
             catch (NullReferenceException) { return; }
@@ -111,8 +119,17 @@ public class InputConTroller : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            UsedItem(player.HoldedItem[1]); 
+            UsedItem(player.HoldedItem[1]);
         }
+        ///
+        /// Pause
+        /// 
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            TriggerPause();
+        }
+
     }
     //use this if player interact with Object
     private RaycastHit CheckFront()
@@ -211,9 +228,17 @@ public class InputConTroller : MonoBehaviour
         player.transform.localEulerAngles = new Vector3(0,-yRotation,0);
     }
 
+    private void TriggerPause()
+    {
+        isGamePause = !isGamePause;
+        LockMouse();
+        UIManager.instance.SetPause(isGamePause);
+        
+    }
+
     private void LockMouse()
     {
-        if (Cursor.visible)
+        if (isGamePause == false)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

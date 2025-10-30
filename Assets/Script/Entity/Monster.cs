@@ -72,22 +72,22 @@ public abstract class Monster : Entity , ISprite2D
     public virtual void FollowPlayer()
     {
         RaycastHit lineOfSight;
+        float followTimer = 0;
 
         MonsterMove(seenPlayer.transform);
         if (Physics.Raycast(transform.position, seenPlayer.transform.position, out lineOfSight))
         {
             if (!lineOfSight.collider.GetComponent<Player>())
             {
-                timer += Time.deltaTime;
-                if (timer > 5)
+                followTimer += Time.deltaTime;
+                if (followTimer > 5)
                 {
                     MonsterMove(transform);
                     sawPlayer = false;
                     seenPlayer = null;
-                    timer = 0;
                 }
             }
-            else { timer = 0; }
+
         }
     }
 

@@ -1,0 +1,11 @@
+Inspectator
+Texture Type > Sprite (2D)
+Sprite Mode > Multiple
+Filter Mode > Point
+Compression > None
+
+Sprite Editor
+Type Gird by Cell Size
+Pixel Size X:192 Y:108
+
+Animation 30 fps
