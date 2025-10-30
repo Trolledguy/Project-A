@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7337487144685027070}
   - component: {fileID: 7763247074475709738}
   - component: {fileID: 5436865371507618401}
+  - component: {fileID: 4005619726928131286}
   m_Layer: 0
   m_Name: WalldoubleDoor
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300535640840018329}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.2589, y: 2.2662797, z: 12.383958}
-  m_LocalScale: {x: 47.799347, y: 276.07153, z: 28.676966}
+  m_LocalScale: {x: 58.332203, y: 457.6896, z: 23.41955}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,3 +90,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4005619726928131286
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300535640840018329}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1043627968912860433, guid: dc90ba973f66f7243acad3a84d9482ac, type: 3}
