@@ -9,6 +9,13 @@ public class Nemesis : Monster
         StartCoroutine(MonsterBeavior());
         base.Initialized();
     }
+    void FixedUpdate()
+    {
+        if (seenPlayer != null)
+        {
+            this.FollowPlayer();
+        }
+    }
 
     protected override IEnumerator MonsterBeavior()
     {
