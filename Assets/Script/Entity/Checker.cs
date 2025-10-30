@@ -19,14 +19,9 @@ public class Checker : MonoBehaviour
 
     void Update()
     {
-        if (monster.sawPlayer)
-        {
-            monster.FollowPlayer();
-        }
-        else
-        {
-            monster.CheckHide();
-        }
+
+        monster.CheckHide();
+        
     }
 
 

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d239886079ee024aafce54c47abc441, type: 3}
-  m_Name: NewQuest
+  m_Name: Quest 5
   m_EditorClassIdentifier: Assembly-CSharp::Quest
-  questID: 001
-  questName: Find A Doll
+  questID: 005
+  questName: Put her to life...
   description: 
   objectives:
-  - objectiveID: Test101
+  - objectiveID: Nail
     description: 
     isCompleted: 0

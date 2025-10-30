@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d239886079ee024aafce54c47abc441, type: 3}
-  m_Name: NewQuest 1
+  m_Name: Quest 2
   m_EditorClassIdentifier: Assembly-CSharp::Quest
   questID: 002
-  questName: Find A MORE
+  questName: Find a Sissor
   description: 
   objectives:
-  - objectiveID: Karn Kai
-    description: 
-    isCompleted: 0
-  - objectiveID: KAI
+  - objectiveID: KARNKAI
     description: 
     isCompleted: 0

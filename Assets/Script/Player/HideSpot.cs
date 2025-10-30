@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class HideSpot : Identity , IInteractable
+public abstract class HideSpot : PlayerRelate , IInteractable
 {
     public Player hiddingPlayer;
     public Transform hidePosotion;
